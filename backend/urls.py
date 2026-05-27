@@ -21,6 +21,7 @@ from blog.views import login_user, register_user, profile
 from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
+from blog.views import list_posts,create_post
 
 urlpatterns = [
     path('', home, name='home'),
@@ -29,5 +30,7 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view()),
     path('admin/', admin.site.urls),
     path('profile/', profile),
+    path('posts/',list_posts),
+    path('posts/create/',create_post)
 
 ]

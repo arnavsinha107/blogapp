@@ -1,5 +1,6 @@
 import {useState} from "react"
 import RegisterButton from "../components/RegisterButton"
+import Navbar from "../components/NavBar"
 
 function Register(){
  const[form,setForm]=useState({
@@ -44,16 +45,9 @@ function Register(){
  }
  return(
     <div className="min-h-screen bg-white text-black ">
-        <nav className='flex items-center justify-between border-b mb-6'>
-        <h1 className='p-6 text-4xl font-bold'>Simple Blog</h1>
-        <div className='p-6 flex gap-6 '>
-          <a href='/'>home</a>
-          <a href='/login'>login</a>
-          <a href='/register'>register</a>
-          <a href='/blogs'>blogs</a>
-        </div>
-        </nav>
+        <Navbar/>
 
+        <main className='p-6'>
         <h1 className="mx-auto flex max-w-sm w-full text-4xl mb-6 ">Register</h1>
         
         <form onSubmit={handleSubmit} className="mx-auto flex w-full max-w-sm flex-col gap-6">
@@ -88,7 +82,7 @@ function Register(){
             <RegisterButton />
             {message && <p className="">{message}</p>}
         </form>
-        
+        </main>
         
     </div>
  )

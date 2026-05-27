@@ -1,9 +1,12 @@
 import {useState} from "react"
+import { useNavigate } from "react-router-dom"
 import LoginButton from "../components/LoginButton"
 import LogoutButton from "../components/LogoutButton"
+import Navbar from "../components/NavBar"
 
 
 function Login() {
+  const navigate= useNavigate()
   const[form,setForm]=useState({
     username:"",
     //email:"",
@@ -39,6 +42,7 @@ function Login() {
             password:"",
 
         })
+        navigate("/blogs")
     }
     else{
         setMessage("Login failed"),
@@ -50,17 +54,8 @@ function Login() {
 return(
     
     <div className="min-h-screen bg-white text-black">
-        <nav className='flex items-center justify-between border-b mb-6 '>
-        <h1 className='p-6 text-4xl font-bold'>Simple Blog</h1>
-        <div className='p-6 flex gap-6'>
-          <a href='/'>home</a>
-          <a href='/login'>login</a>
-          <a href='/register'>register</a>
-          <a href='/blogs'>blogs</a>
-        </div>
-
-
-        </nav>
+        <Navbar />
+        <main className="p-6">
         <h1 className="mb-6 mx-auto flex w-full max-w-sm text-4xl ">Login</h1>
         <form onSubmit={handleSubmit} className="mx-auto flex w-full max-w-sm flex-col gap-6">
             <input
@@ -87,6 +82,7 @@ return(
             <LogoutButton/>
             {message && <p className="mt-4">{message}</p>}
         </form>
+        </main>
         
         
         
