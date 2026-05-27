@@ -17,17 +17,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from blog.views import home
-from blog.views import register_user,profile
+from blog.views import login_user, register_user, profile
 from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
     TokenRefreshView,
 )
 
 urlpatterns = [
     path('', home, name='home'),
     path('register/', register_user),
-    path('login/', TokenObtainPairView.as_view()),
+    path('login/', login_user),
     path('token/refresh/', TokenRefreshView.as_view()),
     path('admin/', admin.site.urls),
     path('profile/', profile),
+
 ]
