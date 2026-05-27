@@ -1,6 +1,6 @@
 import {useState} from "react"
 import RegisterButton from "../components/RegisterButton"
-import Navbar from "../components/NavBar"
+import Navbar from "../components/Navbar"
 
 function Register(){
  const[form,setForm]=useState({

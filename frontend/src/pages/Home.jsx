@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import Navbar from '../components/NavBar'
+import Navbar from '../components/Navbar'
 function App() {
   const [message, setMessage] = useState("")
 
@@ -16,6 +16,7 @@ function App() {
 
       <div className='p-6'>
         <h2 className='text-2xl font-bold' >{message}</h2>
+        <h2 className='text-2xl '>Welcome to very Unintuitive Blog app</h2>
 
       </div>
     </div>

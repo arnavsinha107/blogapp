@@ -2,7 +2,7 @@ import {useState} from "react"
 import { useNavigate } from "react-router-dom"
 import LoginButton from "../components/LoginButton"
 import LogoutButton from "../components/LogoutButton"
-import Navbar from "../components/NavBar"
+import Navbar from "../components/Navbar"
 
 
 function Login() {
@@ -79,7 +79,6 @@ return(
             />
 
             <LoginButton />
-            <LogoutButton/>
             {message && <p className="mt-4">{message}</p>}
         </form>
         </main>

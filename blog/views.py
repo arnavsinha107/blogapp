@@ -29,7 +29,7 @@ def register_user(request):
             },
             status=status.HTTP_201_CREATED
         )
-    return Response(serializer.errors)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
@@ -61,7 +61,7 @@ def create_post(request):
     if serializer.is_valid():
         serializer.save(author=request.user)
         return Response(serializer.data,status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_401_UNAUTHORIZED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -69,7 +69,7 @@ def list_posts(request):
     posts = BlogPost.objects.all().order_by('-created_at')
 
     paginator = PageNumberPagination()
-    paginator.page_size = 5
+    paginator.page_size = 3
 
     result_page = paginator.paginate_queryset(posts, request)
     serializer = BlogPostSerializer(result_page, many=True)

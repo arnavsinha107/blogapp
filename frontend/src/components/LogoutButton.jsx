@@ -5,10 +5,10 @@ function LogoutButton(){
     const handleLogout=(e)=>{
         e.preventDefault()
         const access=localStorage.getItem("access")
-        if(!access){
-            alert("Not logged in")
-            return
-        }
+        // if(!access){
+        //     alert("Not logged in")
+        //     return
+        // }
         localStorage.removeItem("access")
         localStorage.removeItem("refresh")
         alert("Logged out")
