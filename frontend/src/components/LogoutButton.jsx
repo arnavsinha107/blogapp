@@ -15,7 +15,7 @@ function LogoutButton(){
         navigate("/login", { replace: true })
     }
     return(
-        <button type="button" onClick={handleLogout} className="bg-black text-white p-2">
+        <button type="button" onClick={handleLogout} className="bg-black text-white p-4">
             Logout
         </button>
     )

@@ -1,4 +1,5 @@
 import {useState} from "react"
+import RegisterButton from "../components/RegisterButton"
 
 function Register(){
  const[form,setForm]=useState({
@@ -43,9 +44,9 @@ function Register(){
  }
  return(
     <div className="min-h-screen bg-white text-black ">
-        <nav className='flex items-center justify-between border-b '>
+        <nav className='flex items-center justify-between border-b mb-6'>
         <h1 className='p-6 text-4xl font-bold'>Simple Blog</h1>
-        <div className='p-6 flex gap-6'>
+        <div className='p-6 flex gap-6 '>
           <a href='/'>home</a>
           <a href='/login'>login</a>
           <a href='/register'>register</a>
@@ -53,8 +54,9 @@ function Register(){
         </div>
         </nav>
 
-        <h1 className="text-4xl mb-6 p-6">Register</h1>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-6 ">
+        <h1 className="mx-auto flex max-w-sm w-full text-4xl mb-6 ">Register</h1>
+        
+        <form onSubmit={handleSubmit} className="mx-auto flex w-full max-w-sm flex-col gap-6">
             <input
                 type="text"
                 name="username"
@@ -83,11 +85,11 @@ function Register(){
                 className="border p-4"
             />
 
-            <button type="submit" className="bg-black text-white p-2">
-                Register
-            </button>
+            <RegisterButton />
+            {message && <p className="">{message}</p>}
         </form>
-        {message && <p className="mt-4">{message}</p>}
+        
+        
     </div>
  )
 }

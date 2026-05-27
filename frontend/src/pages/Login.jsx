@@ -1,5 +1,6 @@
 import {useState} from "react"
-import LogoutButton from "../components/logout"
+import LoginButton from "../components/LoginButton"
+import LogoutButton from "../components/LogoutButton"
 
 
 function Login() {
@@ -49,7 +50,7 @@ function Login() {
 return(
     
     <div className="min-h-screen bg-white text-black">
-        <nav className='flex items-center justify-between border-b '>
+        <nav className='flex items-center justify-between border-b mb-6 '>
         <h1 className='p-6 text-4xl font-bold'>Simple Blog</h1>
         <div className='p-6 flex gap-6'>
           <a href='/'>home</a>
@@ -60,8 +61,8 @@ return(
 
 
         </nav>
-        <h1 className="text-4xl mb-6 p-6">Login</h1>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-6 ">
+        <h1 className="mb-6 mx-auto flex w-full max-w-sm text-4xl ">Login</h1>
+        <form onSubmit={handleSubmit} className="mx-auto flex w-full max-w-sm flex-col gap-6">
             <input
                 type="text"
                 name="username"
@@ -82,12 +83,12 @@ return(
                 className="border p-4"
             />
 
-            <button type="submit" className="bg-black text-white p-2">
-                Login
-            </button>
+            <LoginButton />
+            <LogoutButton/>
+            {message && <p className="mt-4">{message}</p>}
         </form>
-        <h1 className="p-6"><LogoutButton/></h1>
-        {message && <p className="mt-4">{message}</p>}
+        
+        
         
     </div>
  )
