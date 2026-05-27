@@ -22,6 +22,8 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 from blog.views import list_posts,create_post
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', home, name='home'),
@@ -33,4 +35,4 @@ urlpatterns = [
     path('posts/',list_posts),
     path('posts/create/',create_post)
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

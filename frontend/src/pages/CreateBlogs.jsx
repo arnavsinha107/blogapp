@@ -9,12 +9,17 @@ function CreateBlogs() {
     content: "",
   })
   const [message, setMessage] = useState("")
-
+  const [image, setImage] = useState()
   const handleChange = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     })
+  }
+  const handleImageChange = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setImage(e.target.files[0]) // Capture the file object
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -25,16 +30,27 @@ function CreateBlogs() {
       setMessage("You must be logged in to create a post.")
       return
     }
+    if(!image){
+        setMessage("Mandatory Image.")
+        return
+    }
+
+    const formData = new FormData()
+    formData.append("title", form.title)
+    formData.append("content", form.content)
+    formData.append("image", image)
+
 
     try {
       const response = await fetch("http://127.0.0.1:8000/posts/create/", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          
           Authorization: `Bearer ${access}`,
         },
-        body: JSON.stringify(form),
+        body: formData,
       })
+      
 
       const data = await response.json()
 
@@ -77,6 +93,17 @@ function CreateBlogs() {
             className="border p-4 min-h-[150px]"
             required
           />
+          <div className="flex flex-col gap-2">
+            <label className="text-sm  text-gray">Upload Image: </label>
+            <input
+              type="file"
+              name="image"
+              accept="image/*"  //image
+              onChange={handleImageChange}
+              className="border p-4"
+              required
+            />
+          </div>
 
           <button type="submit" className="bg-black text-white p-4">
             Submit Post

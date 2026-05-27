@@ -57,7 +57,7 @@ def profile(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def create_post(request):
-    serializer=BlogPostSerializer(data=request.data)
+    serializer=BlogPostSerializer(data=request.data, context={'request': request})
     if serializer.is_valid():
         serializer.save(author=request.user)
         return Response(serializer.data,status=status.HTTP_201_CREATED)
@@ -72,6 +72,6 @@ def list_posts(request):
     paginator.page_size = 3
 
     result_page = paginator.paginate_queryset(posts, request)
-    serializer = BlogPostSerializer(result_page, many=True)
+    serializer = BlogPostSerializer(result_page, many=True, context={'request': request})
 
     return paginator.get_paginated_response(serializer.data)
