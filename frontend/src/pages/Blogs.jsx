@@ -13,6 +13,8 @@ function Blogs() {
   const [nextPage, setNextPage] = useState(null)
   const [prevPage, setPrevPage] = useState(null)
 
+  const API_BASE_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000"
+
   const fetchPosts = async (url) => {
     setLoading(true)
     setMessage("")
@@ -44,9 +46,9 @@ function Blogs() {
   useEffect(() => {
     const access = localStorage.getItem("access")
     if (!access) {
-      navigate("/register", { replace: true })
+      navigate("/login", { replace: true })
     } else {
-      fetchPosts("http://127.0.0.1:8000/posts/")
+      fetchPosts(`${API_BASE_URL}/posts/`)
     }
   }, [navigate])
 

@@ -5,8 +5,10 @@ import Navbar from '../components/Navbar'
 function App() {
   const [message, setMessage] = useState("")
 
+  const API_BASE_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000"
+
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/")
+    fetch(`${API_BASE_URL}/`)
       .then((res) => res.json())
       .then((data) => setMessage(data.message))
       .catch((err) => console.log("Backend offline, using fallback greeting", err))

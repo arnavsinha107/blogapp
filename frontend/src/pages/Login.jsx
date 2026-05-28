@@ -19,13 +19,15 @@ function Login() {
     })
   }
 
+  const API_BASE_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000"
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError(false)
     setMessage("")
     
     try {
-      const response = await fetch("http://127.0.0.1:8000/login/", {
+      const response = await fetch(`${API_BASE_URL}/login/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
