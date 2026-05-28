@@ -46,12 +46,12 @@ if not SECRET_KEY:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env_bool('DJANGO_DEBUG', True)
 
-ALLOWED_HOSTS = env_list('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1')
+ALLOWED_HOSTS = env_list('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1,blogapp-5t72.onrender.com,.onrender.com')
 
 #ALLOW REACT FRONTEND
 CORS_ALLOWED_ORIGINS = env_list(
     'CORS_ALLOWED_ORIGINS',
-    'http://localhost:5173,http://127.0.0.1:5173,blogapp-5t72.onrender.com,blogapp-gilt-delta.vercel.app',
+    'http://localhost:5173,http://127.0.0.1:5173,https://blogapp-gilt-delta.vercel.app,https://blogapp-a89unaxid-arnavsinha107-4938s-projects.vercel.app/,https://blogapp-5t72.onrender.com',
 )
 
 # Application definition
