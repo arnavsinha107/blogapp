@@ -51,7 +51,7 @@ ALLOWED_HOSTS = env_list('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1')
 #ALLOW REACT FRONTEND
 CORS_ALLOWED_ORIGINS = env_list(
     'CORS_ALLOWED_ORIGINS',
-    'http://localhost:5173,http://127.0.0.1:5173',
+    'http://localhost:5173,http://127.0.0.1:5173,blogapp-5t72.onrender.com,blogapp-gilt-delta.vercel.app',
 )
 
 # Application definition
