@@ -16,7 +16,7 @@ function LogoutButton() {
     <button 
       type="button" 
       onClick={handleLogout} 
-      className="border border-slate-200 hover:bg-slate-50 active:scale-95 text-slate-600 px-4 py-2 rounded-xl text-sm font-semibold transition-all cursor-pointer"
+      className="border border-slate-800/80 hover:border-slate-700/80 hover:bg-white/5 active:scale-95 text-slate-400 hover:text-slate-300 px-4 py-1.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest transition-all cursor-pointer"
     >
       Sign out
     </button>

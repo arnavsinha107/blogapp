@@ -8,6 +8,10 @@ import CreateBlogs from "./pages/CreateBlogs"
 const App = () => {
   return (
     <BrowserRouter>
+      {/* Global Pulsating Ambient Background */}
+      <div className="ambient-pulse-bg" />
+      <div className="ambient-overlay" />
+
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/blogs" element={<Blogs/>}/>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
 
 function App() {
   const [message, setMessage] = useState("")
@@ -15,60 +16,56 @@ function App() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-slate-50/50 text-slate-900 pb-20">
+    <div className="min-h-screen bg-transparent text-[#e5e2e1] flex flex-col justify-between">
       <Navbar />
 
-      <main className="max-w-3xl mx-auto px-6 text-center mt-20 sm:mt-28">
+      <main className="max-w-4xl mx-auto px-6 text-center flex flex-col items-center justify-center flex-grow py-12">
         
-        {/* database connection */}
-        {message && (
-          <div className="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-100 rounded-full px-4.5 py-1.5 mb-8 shadow-sm">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-[13px] font-bold text-emerald-700 uppercase tracking-wider">
-              {message}
-            </span>
-          </div>
-        )}
-
-       
-        <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-900 leading-none mb-6">
-          Welcome to a very <br className="hidden sm:inline" />
-          <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600 bg-clip-text text-transparent">
-            Unintuitive 
+        {/* Backend Status*/}
+        <div className="inline-flex items-center gap-2 bg-[#1c1b1b] border border-emerald-900/40 rounded-full px-4.5 py-1.5 mb-8 shadow-sm">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981]" />
+          <span className="text-[11px] font-bold text-emerald-400 uppercase tracking-widest">
+            {message ? message.toUpperCase() : "CONNECTION PENDING"}
           </span>
-          <br></br>Blog app
+        </div>
+
+        {/* Display Typography */}
+        <h1 className="text-[44px] sm:text-[76px] font-extrabold font-serif tracking-tight text-white leading-[1.1] mb-6 max-w-3xl">
+          Welcome to a very<br />
+          <span className="italic font-normal text-[#c0c1ff] pr-3">Unintuitive</span><br/>
+           Blog app
         </h1>
 
-        <p className="text-base sm:text-lg text-slate-500 font-medium max-w-xl mx-auto leading-relaxed mb-10">
-          Sign up to read the latest community Blogs.
+        {/* Subtitle Description */}
+        <p className="text-[14px] sm:text-[16px] text-slate-400 font-medium max-w-xl mx-auto leading-relaxed mb-10">
+          Sign up to read the latest community Blogs. 
         </p>
 
-        {/* go to Blogs */}
-        <div className="flex justify-center gap-4">
+        {/* 3-Column Actions Row */}
+        <div className="flex flex-col sm:flex-row justify-center gap-4 w-full max-w-md">
           <Link 
             to="/blogs" 
-            className="bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-bold px-8 py-3.5 rounded-xl transition-all shadow-md hover:shadow-lg hover:scale-[1.01] text-[15px] cursor-pointer"
+            className="flex-1 bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white font-bold py-3.5 px-6 rounded-xl transition-all shadow-md hover:shadow-indigo-500/10 hover:scale-[1.01] text-[13px] uppercase tracking-wider text-center cursor-pointer"
           >
             Explore Blogs
           </Link>
           <Link 
             to="/login" 
-            className="bg-white border border-slate-200 hover:bg-slate-50 active:scale-95 text-slate-600 font-bold px-8 py-3.5 rounded-xl transition-all shadow-sm hover:shadow text-[15px] cursor-pointer
-"
+            className="flex-1 bg-[#1c1b1b] border border-slate-800 hover:bg-[#1c1b1b] hover:border-slate-700 active:scale-95 text-slate-300 font-bold py-3.5 px-6 rounded-xl transition-all text-[13px] uppercase tracking-wider text-center cursor-pointer"
           >
             Login
           </Link>
           <Link 
             to="/register" 
-            className="bg-white border border-slate-200 hover:bg-slate-50 active:scale-95 text-slate-600 font-bold px-8 py-3.5 rounded-xl transition-all shadow-sm hover:shadow text-[15px] cursor-pointer
-"
+            className="flex-1 bg-[#1c1b1b] border border-slate-800 hover:bg-[#1c1b1b] hover:border-slate-700 active:scale-95 text-slate-300 font-bold py-3.5 px-6 rounded-xl transition-all text-[13px] uppercase tracking-wider text-center cursor-pointer"
           >
             Sign Up
           </Link>
-          
         </div>
 
       </main>
+
+      <Footer />
     </div>
   )
 }
