@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from blog.views import home
-from blog.views import login_user, register_user, profile
+from blog.views import login_user, register_user, profile, google_login, request_password_reset, confirm_password_reset
 from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
@@ -33,6 +33,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('profile/', profile),
     path('posts/',list_posts),
-    path('posts/create/',create_post)
+    path('posts/create/',create_post),
+    path('auth/google/', google_login),
+    path('password-reset/', request_password_reset),
+    path('password-reset/confirm/', confirm_password_reset),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

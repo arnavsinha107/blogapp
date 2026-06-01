@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
+import { GoogleLogin } from "@react-oauth/google"
 import LoginButton from "../components/LoginButton"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
@@ -56,6 +57,44 @@ function Login() {
     }
   }
 
+  const handleGoogleSuccess = async (credentialResponse) => {
+    setError(false)
+    setMessage("")
+    try {
+      const response = await fetch(`${API_BASE_URL}/auth/google/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          credential: credentialResponse.credential
+        }),
+      })
+      const data = await response.json()
+      if (response.ok) {
+        localStorage.setItem("access", data.access)
+        localStorage.setItem("refresh", data.refresh)
+        localStorage.setItem("username", data.username)
+        setMessage("Google login successful! Redirecting...")
+        setTimeout(() => {
+          window.location.href = "/blogs"
+        }, 800)
+      } else {
+        setError(true)
+        setMessage(data.error || "Google login failed. Please try again.")
+      }
+    } catch (err) {
+      setError(true)
+      setMessage("Could not connect to server. Ensure backend is running.")
+      console.error(err)
+    }
+  }
+
+  const handleGoogleError = () => {
+    setError(true)
+    setMessage("Google login initialization failed.")
+  }
+
   return (
     <div className="min-h-screen bg-transparent text-[#e5e2e1] flex flex-col justify-between">
       <Navbar />
@@ -98,9 +137,14 @@ function Login() {
 
             {/* Password Input */}
             <div className="flex flex-col gap-2">
-              <label className="text-[10px] font-extrabold text-[#c7c4d7] uppercase tracking-[0.2em] leading-none">
-                Password
-              </label>
+              <div className="flex justify-between items-center">
+                <label className="text-[10px] font-extrabold text-[#c7c4d7] uppercase tracking-[0.2em] leading-none">
+                  Password
+                </label>
+                <Link to="/forgot-password" className="text-[10px] text-slate-500 hover:text-indigo-400 font-bold transition-colors">
+                  Forgot?
+                </Link>
+              </div>
               <input
                 type="password"
                 name="password"
@@ -115,6 +159,27 @@ function Login() {
             {/* Submit Button */}
             <div className="mt-2">
               <LoginButton />
+            </div>
+
+            {/* Divider */}
+            <div className="relative flex py-1 items-center">
+              <div className="flex-grow border-t border-slate-800/40"></div>
+              <span className="flex-shrink mx-3 text-[9px] font-extrabold text-slate-600 uppercase tracking-widest">
+                or
+              </span>
+              <div className="flex-grow border-t border-slate-800/40"></div>
+            </div>
+
+            {/* Google Sign-In Container */}
+            <div className="flex justify-center w-full overflow-hidden rounded-lg">
+              <GoogleLogin
+                onSuccess={handleGoogleSuccess}
+                onError={handleGoogleError}
+                theme="dark"
+                shape="rectangular"
+                text="signin_with"
+                width="320"
+              />
             </div>
 
             {/* Notification Messages */}

@@ -20,6 +20,6 @@ class BlogPostSerializer(serializers.ModelSerializer):
     author=serializers.StringRelatedField(read_only=True)
 
     class Meta:
-        model=BlogPost
-        fields=['id','author','title','content','created_at','image']
-        read_only_fields=['id','author','created_at']
+         model=BlogPost
+         fields=['id','author','title','subtitle','content','subcontent','quotation','comments_count','is_public','created_at','image']
+         read_only_fields=['id','author','created_at']

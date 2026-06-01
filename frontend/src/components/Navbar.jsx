@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom"
 import { useState } from "react"
 import LogoutButton from "./LogoutButton"
 import { TextHoverEffect } from "@/components/ui/text-hover-effect"
+import GlareHover from "./ui/GlareHover"
 
 function Navbar() {
   const access = localStorage.getItem("access")
@@ -18,10 +19,10 @@ function Navbar() {
           <Link to="/" className="w-[170px] h-[34px] flex items-center shrink-0">
             <TextHoverEffect text="Simple Blog" />
           </Link>
-
+ 
           {/* Thin vertical divider */}
           <span className="hidden md:inline h-4 w-[1px] bg-slate-800/80" />
-
+ 
           {/* Left-Aligned Consolidated Links */}
           <div className="hidden md:flex items-center gap-6 font-semibold text-[10px] uppercase tracking-[0.2em]">
             <Link 
@@ -48,7 +49,7 @@ function Navbar() {
             </a>
           </div>
         </div>
-
+ 
         {/* Right side: Authenticated / Action Buttons */}
         <div className="flex items-center gap-4 text-xs font-semibold">
           {access ? (
@@ -57,28 +58,58 @@ function Navbar() {
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_6px_#10b981]" />
                 {username}
               </span>
-              <Link 
-                to="/create" 
-                className="border border-indigo-500/30 hover:border-indigo-400 hover:bg-indigo-950/20 text-indigo-300 px-4 py-1.5 rounded-full text-[10px] uppercase tracking-widest font-extrabold transition-all duration-300"
-              >
-                Create Post
-              </Link>
+              <div className="relative h-[32px] w-[115px] shrink-0">
+                <GlareHover
+                  width="100%"
+                  height="100%"
+                  background="transparent"
+                  borderRadius="9999px"
+                  borderColor="rgba(99, 102, 241, 0.35)"
+                  glareColor="#818cf8"
+                  glareOpacity={0.25}
+                  glareAngle={-30}
+                  glareSize={200}
+                  className="h-full w-full active:scale-95 transition-all duration-300"
+                >
+                  <Link 
+                    to="/create" 
+                    className="absolute inset-0 flex items-center justify-center text-indigo-300 text-[10px] uppercase tracking-widest font-extrabold z-10"
+                  >
+                    Create Post
+                  </Link>
+                </GlareHover>
+              </div>
               <LogoutButton />
             </div>
           ) : (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-4">
               <Link 
                 to="/login" 
                 className="text-slate-400 hover:text-indigo-400 px-3 py-1.5 transition-colors uppercase tracking-widest text-[10px] font-extrabold"
               >
                 Sign in
               </Link>
-              <Link 
-                to="/register" 
-                className="border border-indigo-500/40 hover:border-indigo-400 hover:bg-indigo-950/20 text-indigo-300 px-4 py-1.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest transition-all duration-300"
-              >
-                Join Community
-              </Link>
+              <div className="relative h-[32px] w-[145px] shrink-0">
+                <GlareHover
+                  width="100%"
+                  height="100%"
+                  background="transparent"
+                  borderRadius="9999px"
+                  borderColor="rgba(99, 102, 241, 0.45)"
+                  glareColor="#818cf8"
+                  glareOpacity={0.25}
+                  glareAngle={-30}
+                  glareSize={200}
+                  className="h-full w-full active:scale-95 transition-all duration-300"
+                >
+                  <Link 
+                    to="/register" 
+                    className="absolute inset-0 flex items-center justify-center text-indigo-300 text-[10px] font-extrabold uppercase tracking-widest z-10"
+                  >
+                    Join Community
+                  </Link>
+                </GlareHover>
+              </div>
             </div>
           )}
         </div>

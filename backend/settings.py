@@ -52,7 +52,7 @@ ALLOWED_HOSTS.extend(['blogapp-5t72.onrender.com', '.onrender.com'])
 #ALLOW REACT FRONTEND
 CORS_ALLOWED_ORIGINS = env_list(
     'CORS_ALLOWED_ORIGINS',
-    'http://localhost:5173,http://127.0.0.1:5173,https://blogapp-gilt-delta.vercel.app,https://blogapp-a89unaxid-arnavsinha107-4938s-projects.vercel.app/,https://blogapp-5t72.onrender.com',
+    'http://localhost:5173,http://127.0.0.1:5173,https://blogapp-gilt-delta.vercel.app,https://blogapp-a89unaxid-arnavsinha107-4938s-projects.vercel.app,https://blogapp-5t72.onrender.com',
 )
 
 # Application definition
@@ -114,6 +114,11 @@ DATABASES = {
         'PASSWORD': os.environ.get('DB_PASSWORD', ''),
         'HOST': os.environ.get('DB_HOST', '127.0.0.1'),
         'PORT': os.environ.get('DB_PORT', '3306'),
+        'CONN_MAX_AGE': 0,
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 }
 
@@ -168,9 +173,24 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS':'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 5,
+    'PAGE_SIZE': 6,
 }
 
 MEDIA_URL='/media/'
 
 MEDIA_ROOT=BASE_DIR/'media'
+
+# Email Configuration (Default to printing to console for local testing)
+EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend')
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
+EMAIL_USE_TLS = env_bool('EMAIL_USE_TLS', True)
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'no-reply@blogapp.com')
+
+# Google OAuth Settings
+GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID', 'PLACEHOLDER_GOOGLE_CLIENT_ID.apps.googleusercontent.com')
+
+# Frontend Base URL (for email redirect links)
+FRONTEND_URL = os.environ.get('FRONTEND_URL', 'http://localhost:5173')

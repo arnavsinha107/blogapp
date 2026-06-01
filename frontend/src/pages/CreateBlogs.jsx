@@ -8,7 +8,11 @@ function CreateBlogs() {
   const navigate = useNavigate()
   const [form, setForm] = useState({
     title: "",
+    subtitle: "",
     content: "",
+    subcontent: "",
+    quotation: "",
+    is_public: true,
   })
   const [message, setMessage] = useState("")
   const [image, setImage] = useState(null)
@@ -16,9 +20,10 @@ function CreateBlogs() {
   const [error, setError] = useState(false)
 
   const handleChange = (e) => {
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
     setForm({
       ...form,
-      [e.target.name]: e.target.value,
+      [e.target.name]: value,
     })
   }
 
@@ -53,7 +58,11 @@ function CreateBlogs() {
 
     const formData = new FormData()
     formData.append("title", form.title)
+    formData.append("subtitle", form.subtitle)
     formData.append("content", form.content)
+    formData.append("subcontent", form.subcontent)
+    formData.append("quotation", form.quotation)
+    formData.append("is_public", form.is_public)
     formData.append("image", image)
 
     try {
@@ -90,13 +99,13 @@ function CreateBlogs() {
           
           <div className="mb-10">
             <span className="text-[10px] font-extrabold text-indigo-400 uppercase tracking-[0.3em]">
-              Draft Dashboard
+              Create Blog
             </span>
             <h1 className="text-[38px] font-extrabold font-serif text-white tracking-tight leading-none mt-2 mb-3">
-              Draft a New Entry
+              Create a new post
             </h1>
             <p className="text-xs text-slate-500 max-w-md font-medium leading-relaxed">
-              Craft your insights and share stories with the Simple Blog editorial network. Use editorial formatting guidelines for optimal reach.
+                Add all the relevant information required.
             </p>
           </div>
 
@@ -114,7 +123,22 @@ function CreateBlogs() {
                 value={form.title}
                 onChange={handleChange}
                 required
-                className="w-full bg-[#0A0A0A] border border-slate-800/80 rounded-lg px-4 py-4 text-white text-[18px] font-serif placeholder-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+                className="w-full bg-[#0A0A0A] border border-slate-800/80 rounded-lg px-4 py-3.5 text-white text-[14px] placeholder-slate-650 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+              />
+            </div>
+
+            {/* Subtitle - New Field */}
+            <div className="flex flex-col gap-2">
+              <label className="text-[10px] font-extrabold text-[#c7c4d7] uppercase tracking-[0.2em] leading-none">
+                Subtitle / Hook
+              </label>
+              <input
+                type="text"
+                name="subtitle"
+                placeholder="Write a compelling subtitle or summary..."
+                value={form.subtitle}
+                onChange={handleChange}
+                className="w-full bg-[#0A0A0A] border border-slate-800/80 rounded-lg px-4 py-3.5 text-white text-[14px] placeholder-slate-650 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
               />
             </div>
 
@@ -166,23 +190,70 @@ function CreateBlogs() {
             {/* Content Textarea */}
             <div className="flex flex-col gap-2">
               <label className="text-[10px] font-extrabold text-[#c7c4d7] uppercase tracking-[0.2em] leading-none">
-                Article Body
+                Article Body (First Paragraph)
               </label>
               <textarea
                 name="content"
-                placeholder="Write your editorial masterpiece... Supports paragraphs and dialogue formats."
+                placeholder="Write your main intro paragraph..."
                 value={form.content}
                 onChange={handleChange}
                 required
-                className="w-full bg-[#0A0A0A] border border-slate-800/80 rounded-lg px-4 py-4 text-white text-[15px] leading-relaxed placeholder-slate-750 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all min-h-[260px] resize-y"
+                className="w-full bg-[#0A0A0A] border border-slate-800/80 rounded-lg px-4 py-4 text-white text-[15px] leading-relaxed placeholder-slate-750 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all min-h-[140px] resize-y"
               />
+            </div>
+
+            {/* Quotation - New Field */}
+            <div className="flex flex-col gap-2">
+              <label className="text-[10px] font-extrabold text-[#c7c4d7] uppercase tracking-[0.2em] leading-none">
+                Immersive Quotation / Callout
+              </label>
+              <input
+                type="text"
+                name="quotation"
+                placeholder="Add a beautiful italic callout or key statement..."
+                value={form.quotation}
+                onChange={handleChange}
+                className="w-full bg-[#0A0A0A] border border-slate-800/80 rounded-lg px-4 py-3.5 text-white text-[14px] placeholder-slate-650 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+              />
+            </div>
+
+            {/* Subcontent - New Field */}
+            <div className="flex flex-col gap-2">
+              <label className="text-[10px] font-extrabold text-[#c7c4d7] uppercase tracking-[0.2em] leading-none">
+                Article Subcontent / Second Block
+              </label>
+              <textarea
+                name="subcontent"
+                placeholder="Add sub-text or secondary details to display below the quotation callout..."
+                value={form.subcontent}
+                onChange={handleChange}
+                className="w-full bg-[#0A0A0A] border border-slate-800/80 rounded-lg px-4 py-4 text-white text-[15px] leading-relaxed placeholder-slate-750 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all min-h-[140px] resize-y"
+              />
+            </div>
+
+            {/* Visibility Toggle / Public Checkbox */}
+            <div className="flex items-center gap-3 bg-[#0A0A0A] p-4.5 rounded-lg border border-slate-800/80">
+              <input
+                type="checkbox"
+                id="is_public"
+                name="is_public"
+                checked={form.is_public}
+                onChange={handleChange}
+                className="w-4 h-4 accent-indigo-600 rounded cursor-pointer"
+              />
+              <div className="text-left">
+                <label htmlFor="is_public" className="text-xs font-bold text-white uppercase tracking-wider cursor-pointer">
+                  Public Visibility
+                </label>
+               
+              </div>
             </div>
 
             {/* Actions / Publish Button */}
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-2 pt-6 border-t border-slate-800/60">
-              <span className="text-[10px] text-slate-600 uppercase font-extrabold tracking-widest">
-                Status: Ready to publish
-              </span>
+              <span/>
+                
+              
               
               <button 
                 type="submit" 

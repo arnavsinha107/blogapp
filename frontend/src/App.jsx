@@ -4,6 +4,8 @@ import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Blogs from "./pages/Blogs"
 import CreateBlogs from "./pages/CreateBlogs"
+import ForgotPassword from "./pages/ForgotPassword"
+import ResetPassword from "./pages/ResetPassword"
 
 const App = () => {
   return (
@@ -18,7 +20,8 @@ const App = () => {
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
         <Route path="/create" element={<CreateBlogs/>}/>
-
+        <Route path="/forgot-password" element={<ForgotPassword/>}/>
+        <Route path="/reset-password" element={<ResetPassword/>}/>
       </Routes>
     </BrowserRouter>
   )
