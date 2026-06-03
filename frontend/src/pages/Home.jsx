@@ -4,9 +4,12 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import GhostCursor from '../components/ui/GhostCursor'
 import GlareHover from '../components/ui/GlareHover'
+import LogoutButton from "../components/LogoutButton"
 
 function App() {
   const [message, setMessage] = useState("")
+  const access=localStorage.getItem("access")
+  //const refresh=localStorage.getItem("refresh")
 
   const API_BASE_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000"
 
@@ -53,7 +56,7 @@ function App() {
           {/* Display Typography */}
           <h1 className="text-[44px] sm:text-[76px] font-extrabold font-serif tracking-tight text-white leading-[1.1] mb-6 max-w-3xl">
             Welcome to a very<br />
-            <span className="italic font-normal text-[#c0c1ff] pr-3">Unintuitive</span><br/>
+            <span className="italic font-normal text-[#c0c1ff] px-3">Unintuitive</span>
              Blog app
           </h1>
 
@@ -64,7 +67,7 @@ function App() {
 
           {/* 3-Column Actions Row */}
           <div className="flex flex-col sm:flex-row justify-center gap-4 w-full max-w-md">
-            <Link to="/blogs" className="flex-grow flex-1 h-[52px]">
+            {access? (<Link to="/blogs" className="flex-grow flex-1 h-[52px]">
               <GlareHover
                 width="100%"
                 height="100%"
@@ -81,9 +84,9 @@ function App() {
                   Explore Blogs
                 </span>
               </GlareHover>
-            </Link>
+            </Link>) : (<></>)}
 
-            <Link to="/login" className="flex-grow flex-1 h-[52px]">
+            {!access ? ( <Link to="/login" className="flex-grow flex-1 h-[52px]">
               <GlareHover
                 width="100%"
                 height="100%"
@@ -100,9 +103,11 @@ function App() {
                   Login
                 </span>
               </GlareHover>
-            </Link>
+            </Link> ): (
+              <></>
+            )}
 
-            <Link to="/register" className="flex-grow flex-1 h-[52px]">
+            {!access? (<Link to="/register" className="flex-grow flex-1 h-[52px]">
               <GlareHover
                 width="100%"
                 height="100%"
@@ -119,7 +124,7 @@ function App() {
                   Sign Up
                 </span>
               </GlareHover>
-            </Link>
+            </Link>):(<></>)}
           </div>
 
         </main>

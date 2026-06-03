@@ -9,7 +9,7 @@ function LogoutButton() {
     localStorage.removeItem("access")
     localStorage.removeItem("refresh")
     localStorage.removeItem("username")
-    alert("Logged out successfully")
+    //alert("Logged out successfully")
     navigate("/login", { replace: true })
   }
 

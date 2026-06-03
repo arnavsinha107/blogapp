@@ -189,7 +189,7 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'no-reply@blogapp.com')
 
-# Google OAuth Settings
+# Google OAuth Settings (NOT CONFIGURED)
 GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID', 'PLACEHOLDER_GOOGLE_CLIENT_ID.apps.googleusercontent.com')
 
 # Frontend Base URL (for email redirect links)
