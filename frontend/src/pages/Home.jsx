@@ -22,7 +22,7 @@ function App() {
       {/* Background Interactive GhostCursor Effect */}
       <div className="absolute inset-0 w-full h-full min-h-screen z-0 opacity-40 pointer-events-none">
         <GhostCursor
-          color="#af5edaff"
+          color="#af5eda"
           brightness={0.1}
           edgeIntensity={0.2}
           trailLength={60}

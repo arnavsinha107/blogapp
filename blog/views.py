@@ -2,11 +2,11 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import RegisterSerializer, BlogPostSerializer
+from .serializers import RegisterSerializer, BlogPostSerializer, CommentSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import permission_classes
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from .models import BlogPost
+from .models import BlogPost, Comment
 from rest_framework.pagination import PageNumberPagination
 from django.conf import settings
 from django.core.mail import send_mail
@@ -75,14 +75,28 @@ def create_post(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def list_posts(request):
-    # Retrieve all public posts, or private posts where the author is the currently logged in user
     from django.db.models import Q
     posts = BlogPost.objects.filter(
         Q(is_public=True) | Q(author=request.user)
     ).order_by('-created_at')
 
+    # AJAX search: filter by ?search= across title, subtitle, content, author
+    search = request.query_params.get('search', '').strip()
+    if search:
+        posts = posts.filter(
+            Q(title__icontains=search) |
+            Q(subtitle__icontains=search) |
+            Q(content__icontains=search) |
+            Q(author__username__icontains=search)
+        )
+
+    # Category filter: ?category=Dev
+    category = request.query_params.get('category', '').strip()
+    if category and category.lower() != 'all':
+        posts = posts.filter(category__iexact=category)
+
     paginator = PageNumberPagination()
-    paginator.page_size = 3
+    paginator.page_size = 9
 
     result_page = paginator.paginate_queryset(posts, request)
     serializer = BlogPostSerializer(result_page, many=True, context={'request': request})
@@ -199,3 +213,36 @@ def confirm_password_reset(request):
         return Response({"message": "Password has been reset successfully!"}, status=status.HTTP_200_OK)
     
     return Response({"error": "The reset link is invalid or has expired."}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def add_comment(request, post_id):
+    try:
+        post = BlogPost.objects.get(pk=post_id)
+    except BlogPost.DoesNotExist:
+        return Response({"error": "BlogPost not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    author = request.user if request.user.is_authenticated else None
+    
+    author_name = request.data.get('author_name', '').strip()
+    if not author_name:
+        if author:
+            author_name = author.username
+        else:
+            author_name = "Anonymous Guest"
+
+    content = request.data.get('content', '').strip()
+    if not content:
+        return Response({"content": ["This field is required."]}, status=status.HTTP_400_BAD_REQUEST)
+
+    comment = Comment.objects.create(
+        post=post,
+        author=author,
+        author_name=author_name,
+        content=content,
+        is_visible=True
+    )
+    
+    serializer = CommentSerializer(comment)
+    return Response(serializer.data, status=status.HTTP_201_CREATED)

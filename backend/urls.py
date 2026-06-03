@@ -21,7 +21,7 @@ from blog.views import login_user, register_user, profile, google_login, request
 from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
-from blog.views import list_posts,create_post
+from blog.views import list_posts, create_post, add_comment
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -34,6 +34,7 @@ urlpatterns = [
     path('profile/', profile),
     path('posts/',list_posts),
     path('posts/create/',create_post),
+    path('posts/<int:post_id>/comments/', add_comment),
     path('auth/google/', google_login),
     path('password-reset/', request_password_reset),
     path('password-reset/confirm/', confirm_password_reset),

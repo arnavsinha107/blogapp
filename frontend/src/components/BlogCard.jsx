@@ -1,8 +1,14 @@
 import { useState } from "react"
+import { MessageSquare } from "lucide-react"
 import GlareHover from "./ui/GlareHover"
+import BlogReaderModal from "./BlogReaderModal"
 
 function BlogCard({ post, viewMode = "grid" }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  // Local state to allow the count on the card feed to update interactively on comment submit
+  const [commentsCount, setCommentsCount] = useState(
+    post.comments_count || (post.comments ? post.comments.length : 0)
+  )
 
   // Format date 
   const formatDate = (dateStr) => {
@@ -17,19 +23,8 @@ function BlogCard({ post, viewMode = "grid" }) {
   const formattedDate = formatDate(post.created_at);
   const authorName = post.author ? post.author.toUpperCase() : "AUTHOR";
 
-  // Simple pure-css drop caps: splits first character from content
-  const renderContentWithDropCaps = (content) => {
-    if (!content) return "";
-    const firstChar = content.charAt(0);
-    const restOfContent = content.slice(1);
-    return (
-      <p className="text-slate-300 text-sm sm:text-base leading-[1.8] font-sans">
-        <span className="float-left text-6xl sm:text-7xl font-serif pr-3 pt-1 font-extrabold text-indigo-400 leading-[0.8] select-none">
-          {firstChar}
-        </span>
-        {restOfContent}
-      </p>
-    );
+  const handleCommentAdded = (newCount) => {
+    setCommentsCount(newCount);
   };
 
   const isList = viewMode === "list";
@@ -75,7 +70,7 @@ function BlogCard({ post, viewMode = "grid" }) {
                 {/* Left Side: Large Cover Image */}
                 <div className="relative w-full md:w-[58%] h-[240px] md:h-full shrink-0 overflow-hidden bg-slate-900">
                   <img
-                    src={post.image || "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80"}
+                    src={post.image || ""}
                     alt={post.title}
                     className="w-full h-full object-cover group-hover:scale-[1.01] transition-transform duration-700"
                   />
@@ -87,7 +82,7 @@ function BlogCard({ post, viewMode = "grid" }) {
                       FEATURED ARTICLE
                     </span>
                     <span className="bg-indigo-950/90 border border-indigo-500/40 text-[9px] font-extrabold text-indigo-300 uppercase tracking-widest px-3 py-1 rounded-full shadow-md">
-                      {post.category || "DESIGN"}
+                      {post.category || ""}
                     </span>
                   </div>
                 </div>
@@ -127,16 +122,8 @@ function BlogCard({ post, viewMode = "grid" }) {
 
                     <div className="flex items-center gap-4">
                       <span className="text-[10px] font-extrabold tracking-widest flex items-center gap-1.5 text-slate-500">
-                        <svg className="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                        </svg>
-                        {post.read_time || "5 MIN READ"}
-                      </span>
-                      <span className="text-[10px] font-extrabold tracking-widest flex items-center gap-1.5 text-slate-500">
-                        <svg className="w-4 h-4 text-rose-500 fill-rose-500/25" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                        </svg>
-                        {post.likes || 120}
+                        <MessageSquare className="w-4 h-4 text-indigo-400 fill-indigo-400/10" strokeWidth={2.5} />
+                        {commentsCount} {commentsCount === 1 ? 'COMMENT' : 'COMMENTS'}
                       </span>
                     </div>
                   </div>
@@ -157,7 +144,7 @@ function BlogCard({ post, viewMode = "grid" }) {
                   {/* Category badge */}
                   <div className="absolute top-4 left-4">
                     <span className="bg-indigo-950/90 border border-indigo-500/40 text-[8px] font-extrabold text-indigo-300 uppercase tracking-widest px-2.5 py-1 rounded-full shadow-sm">
-                      {post.category || "DEV"}
+                      {post.category || "GENERAL"}
                     </span>
                   </div>
                 </div>
@@ -198,17 +185,9 @@ function BlogCard({ post, viewMode = "grid" }) {
                     </div>
 
                     <div className="flex items-center gap-3">
-                      <span className="text-[9px] font-extrabold tracking-widest flex items-center gap-1 text-slate-500">
-                        <svg className="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                        </svg>
-                        {post.read_time || "3 MIN READ"}
-                      </span>
-                      <span className="text-[9px] font-extrabold tracking-widest flex items-center gap-1 text-slate-500">
-                        <svg className="w-3.5 h-3.5 text-rose-500 fill-rose-500/25" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                        </svg>
-                        {post.likes || 12}
+                      <span className="text-[9px] font-extrabold tracking-widest flex items-center gap-1.5 text-slate-500">
+                        <MessageSquare className="w-3.5 h-3.5 text-indigo-400 fill-indigo-400/10" strokeWidth={2.5} />
+                        {commentsCount} {commentsCount === 1 ? 'COMMENT' : 'COMMENTS'}
                       </span>
                     </div>
                   </div>
@@ -236,7 +215,7 @@ function BlogCard({ post, viewMode = "grid" }) {
                     </span>
                   ) : (
                     <span className={`bg-indigo-950/80 border border-indigo-500/30 text-[8px] font-extrabold text-indigo-300 uppercase tracking-widest px-2.5 py-1 rounded-full z-10 shadow-sm`}>
-                      {post.category || "DEV"}
+                      {post.category || "GENERAL"}
                     </span>
                   )}
                   <span className={`text-[10px] font-extrabold tracking-widest uppercase ${post.image ? "text-white/50" : "text-slate-500"}`}>
@@ -264,17 +243,9 @@ function BlogCard({ post, viewMode = "grid" }) {
                     </div>
 
                     <div className="flex items-center gap-3">
-                      <span className={`text-[9px] font-extrabold tracking-widest flex items-center gap-1 ${post.image ? "text-white/60" : "text-slate-500"}`}>
-                        <svg className="w-3 h-3 text-indigo-400" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                        </svg>
-                        {post.read_time || "3 MIN READ"}
-                      </span>
-                      <span className={`text-[9px] font-extrabold tracking-widest flex items-center gap-1 ${post.image ? "text-white/60" : "text-slate-500"}`}>
-                        <svg className="w-3 h-3 text-rose-500 fill-rose-500/25" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                        </svg>
-                        {post.likes || 12}
+                      <span className={`text-[9px] font-extrabold tracking-widest flex items-center gap-1.5 ${post.image ? "text-white/60" : "text-slate-500"}`}>
+                        <MessageSquare className="w-3.5 h-3.5 text-indigo-400 fill-indigo-400/10" strokeWidth={2.5} />
+                        {commentsCount} {commentsCount === 1 ? 'COMMENT' : 'COMMENTS'}
                       </span>
                     </div>
                   </div>
@@ -288,132 +259,12 @@ function BlogCard({ post, viewMode = "grid" }) {
       </div>
 
       {/* 2. Fullscreen Immersive Article Reader Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 z-[100] bg-[#131313]/95 backdrop-blur-lg overflow-y-auto transition-all duration-500 flex justify-center py-6 px-4">
-          <div className="max-w-3xl w-full bg-[#131313] min-h-screen relative flex flex-col justify-between py-10 px-6 sm:px-12">
-            
-            {/* Close Button overlay */}
-            <button 
-              onClick={() => setIsModalOpen(false)}
-              className="absolute top-6 right-6 text-slate-400 hover:text-white bg-[#1c1b1b] border border-slate-800 w-10 h-10 flex items-center justify-center rounded-full hover:scale-105 active:scale-95 transition-all cursor-pointer z-50"
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-5 h-5">
-                <path d="M18 6 6 18M6 6l12 12" />
-              </svg>
-            </button>
-
-            {/* Modal Body Container */}
-            <div>
-              
-
-              {/* Centered Large Serif Headline */}
-              <h2 className="text-[32px] sm:text-[54px] font-extrabold font-serif text-white tracking-tight leading-[1.1] text-center mb-6 max-w-2xl mx-auto">
-                {post.title}
-              </h2>
-
-              {/* Sub-description subtitle */}
-              {post.subtitle && (
-                <p className="text-indigo-200 text-center font-medium italic text-sm sm:text-base max-w-xl mx-auto leading-relaxed mb-8">
-                  {post.subtitle}
-                </p>
-              )}
-
-              {/* Author profile tag */}
-              <div className="flex items-center justify-center gap-3 mb-10">
-                {post.author_avatar ? (
-                  <img 
-                    src={post.author_avatar} 
-                    alt="Author Avatar" 
-                    className="w-10 h-10 rounded-full object-cover border border-indigo-500/30 shadow-sm"
-                  />
-                ) : (
-                  <div className="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xs font-bold text-slate-300">
-                    {post.author ? post.author.slice(0, 2).toUpperCase() : "AU"}
-                  </div>
-                )}
-                <div className="text-left">
-                  <div className="flex items-center gap-2">
-                    <span className="block text-[11px] font-extrabold text-slate-300 uppercase tracking-widest leading-none mb-1">
-                      {authorName}
-                    </span>
-                    {!post.is_public && (
-                      <span className="bg-rose-900/60 border border-rose-800 text-[8px] font-extrabold text-rose-300 uppercase tracking-wider px-2 py-0.5 rounded-full mb-1">
-                        Private
-                      </span>
-                    )}
-                  </div>
-                  <span className="block text-[9px] font-semibold text-slate-500 uppercase tracking-widest">
-                    {formattedDate}
-                  </span>
-                </div>
-              </div>
-
-              {/* Big Cover Image */}
-              <div className="w-full h-[240px] sm:h-[400px] overflow-hidden rounded-2xl mb-12 border border-slate-800/40">
-                <img 
-                  src={post.image || "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1200&q=80"} 
-                  alt="Article Cover" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              {/* Main Content Paragraph with Drop-Cap */}
-              <div className="max-w-2xl mx-auto mb-10">
-                {renderContentWithDropCaps(post.content)}
-              </div>
-
-              {/* Immersive quote block */}
-              {post.quotation && (
-                <div className="max-w-2xl mx-auto border-l-2 border-indigo-500 pl-6 py-2 my-10 bg-indigo-950/10 rounded-r-lg">
-                  <p className="text-[17px] sm:text-[19px] italic font-serif text-indigo-200 leading-relaxed font-normal">
-                    "{post.quotation}"
-                  </p>
-                </div>
-              )}
-
-              {/* Second content block */}
-              {post.subcontent && (
-                <div className="max-w-2xl mx-auto mb-10 text-slate-300 text-sm sm:text-base leading-[1.8] font-sans">
-                  <p>
-                    {post.subcontent}
-                  </p>
-                </div>
-              )}
-              
-
-              {/* Dialogue / comments section (Stitch Style) */}
-              <div className="max-w-2xl mx-auto border-t border-slate-800/60 pt-10 mt-12">
-                <h4 className="text-lg font-bold font-serif text-white tracking-tight mb-6">
-                  Comments <span className="text-indigo-300 font-normal">({post.comments_count || 0})</span>
-                </h4>
-                
-                {/* Mock dialogue message */}
-                <div className="flex gap-4 mb-8 bg-[#1c1b1b]/30 p-5 rounded-2xl border border-slate-800/30">
-                  <div className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-xs font-bold text-white shrink-0">
-                    AS
-                  </div>
-                  <div>
-                    <div className="flex gap-2 items-center mb-1">
-                      <span className="text-xs font-bold text-slate-300 uppercase tracking-wider">Arnav Sinha</span>
-                      <span className="text-[9px] font-semibold text-slate-500 uppercase tracking-wider">2 Days Ago</span>
-                    </div>
-                    <p className="text-slate-400 text-xs sm:text-sm leading-relaxed font-medium">
-                      Wow this is a very wonderful blog
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            {/* Modal Footer Copyright */}
-            <div className="border-t border-slate-800/60 pt-8 mt-12 text-center text-[9px] font-bold text-slate-600 uppercase tracking-widest">
-              © 2026 Simple Blog. 
-            </div>
-
-          </div>
-        </div>
-      )}
+      <BlogReaderModal 
+        post={post}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onCommentAdded={handleCommentAdded}
+      />
     </>
   )
 }

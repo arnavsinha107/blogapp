@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Image } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import Navbar from "../components/Navbar"
 import { apiFetch } from "../utils/api"
@@ -9,6 +10,7 @@ function CreateBlogs() {
   const [form, setForm] = useState({
     title: "",
     subtitle: "",
+    category: "Dev",
     content: "",
     subcontent: "",
     quotation: "",
@@ -59,6 +61,7 @@ function CreateBlogs() {
     const formData = new FormData()
     formData.append("title", form.title)
     formData.append("subtitle", form.subtitle)
+    formData.append("category", form.category)
     formData.append("content", form.content)
     formData.append("subcontent", form.subcontent)
     formData.append("quotation", form.quotation)
@@ -142,6 +145,26 @@ function CreateBlogs() {
               />
             </div>
 
+            {/* Category selection */}
+            <div className="flex flex-col gap-2">
+              <label className="text-[10px] font-extrabold text-[#c7c4d7] uppercase tracking-[0.2em] leading-none">
+                Category
+              </label>
+              <select
+                name="category"
+                value={form.category}
+                onChange={handleChange}
+                className="w-full bg-[#0A0A0A] border border-slate-800/80 rounded-lg px-4 py-3.5 text-white text-[14px] focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all cursor-pointer"
+              >
+                <option value="Dev">Dev</option>
+                <option value="Tech">Tech</option>
+                <option value="Design">Design</option>
+                <option value="Lifestyle">Lifestyle</option>
+                <option value="Productivity">Productivity</option>
+                <option value="Thoughts">Thoughts</option>
+              </select>
+            </div>
+
             {/* Featured Image - Dashed Drag & Drop Style Upload Box */}
             <div className="flex flex-col gap-2">
               <label className="text-[10px] font-extrabold text-[#c7c4d7] uppercase tracking-[0.2em] leading-none">
@@ -172,9 +195,7 @@ function CreateBlogs() {
                 ) : (
                   <div className="flex flex-col items-center gap-2">
                     <div className="h-10 w-10 rounded-full bg-slate-900 flex items-center justify-center border border-slate-800 text-slate-400 group-hover:text-indigo-400 transition-colors">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375 0 11-.75 0 .375 0 01.75 0z" />
-                      </svg>
+                      <Image className="w-5 h-5" strokeWidth={1.5} />
                     </div>
                     <div className="text-xs text-slate-400 font-bold uppercase tracking-widest mt-1">
                       Upload cover artwork

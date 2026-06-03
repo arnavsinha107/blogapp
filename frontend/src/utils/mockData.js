@@ -11,11 +11,29 @@ export const MOCK_POSTS = [
     author: "Elena Rostova",
     author_avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80",
     is_public: true,
-    comments_count: 8,
+    comments_count: 2,
     category: "Design",
     read_time: "5 MIN READ",
     likes: 245,
-    views: 1840
+    views: 1840,
+    comments: [
+      {
+        id: -101,
+        post: -1,
+        author_name: "Arnav Sinha",
+        content: "This is a really gorgeous look at design trends! Glassmorphism feels very elegant here.",
+        created_at: "2026-05-30T14:20:00Z",
+        is_visible: true
+      },
+      {
+        id: -102,
+        post: -1,
+        author_name: "Sarah Jenkins",
+        content: "Completely agree with Elena. Selective transparency is key to readability.",
+        created_at: "2026-05-30T16:45:00Z",
+        is_visible: true
+      }
+    ]
   },
   {
     id: -2,
@@ -29,11 +47,29 @@ export const MOCK_POSTS = [
     author: "Marcus Vance",
     author_avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80",
     is_public: true,
-    comments_count: 14,
+    comments_count: 2,
     category: "Tech",
     read_time: "7 MIN READ",
     likes: 312,
-    views: 2904
+    views: 2904,
+    comments: [
+      {
+        id: -201,
+        post: -2,
+        author_name: "Liam Chen",
+        content: "Fascinating concepts. SQLite on the edge is definitely changing how we build client side state.",
+        created_at: "2026-05-28T18:10:00Z",
+        is_visible: true
+      },
+      {
+        id: -202,
+        post: -2,
+        author_name: "David K.",
+        content: "What are your thoughts on edge database replication latency for cross-atlantic updates?",
+        created_at: "2026-05-29T08:30:00Z",
+        is_visible: true
+      }
+    ]
   },
   {
     id: -3,
@@ -47,11 +83,21 @@ export const MOCK_POSTS = [
     author: "Sarah Jenkins",
     author_avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=100&q=80",
     is_public: true,
-    comments_count: 5,
+    comments_count: 1,
     category: "Productivity",
     read_time: "4 MIN READ",
     likes: 189,
-    views: 1205
+    views: 1205,
+    comments: [
+      {
+        id: -301,
+        post: -3,
+        author_name: "Marcus Vance",
+        content: "This guide is a lifesaver. Turning off Slack notifications for just 2 hours a day doubled my output.",
+        created_at: "2026-05-25T11:45:00Z",
+        is_visible: true
+      }
+    ]
   },
   {
     id: -4,
@@ -65,11 +111,29 @@ export const MOCK_POSTS = [
     author: "Liam Chen",
     author_avatar: "https://images.unsplash.com/photo-1628157582853-a796fa650a6a?auto=format&fit=crop&w=100&q=80",
     is_public: true,
-    comments_count: 11,
+    comments_count: 2,
     category: "Dev",
     read_time: "6 MIN READ",
     likes: 278,
-    views: 2150
+    views: 2150,
+    comments: [
+      {
+        id: -401,
+        post: -4,
+        author_name: "Elena Rostova",
+        content: "Exactly! Self-documenting code is much more valuable than paragraphs of outdated comments.",
+        created_at: "2026-05-22T19:00:00Z",
+        is_visible: true
+      },
+      {
+        id: -402,
+        post: -4,
+        author_name: "Developer Bob",
+        content: "Premature optimization is indeed the root of all evil. Keep it simple first.",
+        created_at: "2026-05-23T10:15:00Z",
+        is_visible: true
+      }
+    ]
   },
   {
     id: -5,
@@ -83,11 +147,21 @@ export const MOCK_POSTS = [
     author: "Zoe Dubois",
     author_avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&q=80",
     is_public: true,
-    comments_count: 3,
+    comments_count: 1,
     category: "Thoughts",
     read_time: "5 MIN READ",
     likes: 154,
-    views: 980
+    views: 980,
+    comments: [
+      {
+        id: -501,
+        post: -5,
+        author_name: "Oliver Thorne",
+        content: "Stepping away from stats is so critical. Creating purely for fun is where the magic lives.",
+        created_at: "2026-05-18T15:30:00Z",
+        is_visible: true
+      }
+    ]
   },
   {
     id: -6,
@@ -101,11 +175,21 @@ export const MOCK_POSTS = [
     author: "Oliver Thorne",
     author_avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80",
     is_public: true,
-    comments_count: 6,
+    comments_count: 1,
     category: "Lifestyle",
     read_time: "5 MIN READ",
     likes: 198,
-    views: 1420
+    views: 1420,
+    comments: [
+      {
+        id: -601,
+        post: -6,
+        author_name: "Zoe Dubois",
+        content: "Beautifully written, Oliver. The tip about drinking coffee without checking screens is a game-changer.",
+        created_at: "2026-05-15T10:45:00Z",
+        is_visible: true
+      }
+    ]
   },
   {
     id: -7,
@@ -119,11 +203,21 @@ export const MOCK_POSTS = [
     author: "Avery Brooks",
     author_avatar: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=100&q=80",
     is_public: true,
-    comments_count: 7,
+    comments_count: 1,
     category: "Design",
     read_time: "5 MIN READ",
     likes: 215,
-    views: 1540
+    views: 1540,
+    comments: [
+      {
+        id: -701,
+        post: -7,
+        author_name: "Elena Rostova",
+        content: "Yes, hiding cables has a strangely powerful effect on mental clarity!",
+        created_at: "2026-05-12T16:00:00Z",
+        is_visible: true
+      }
+    ]
   },
   {
     id: -8,
@@ -137,11 +231,29 @@ export const MOCK_POSTS = [
     author: "Chloe Sinclair",
     author_avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80",
     is_public: true,
-    comments_count: 12,
+    comments_count: 2,
     category: "Tech",
     read_time: "6 MIN READ",
     likes: 340,
-    views: 3105
+    views: 3105,
+    comments: [
+      {
+        id: -801,
+        post: -8,
+        author_name: "Marcus Vance",
+        content: "Multi-agent orchestration is definitely the future. LangGraph and AutoGen are showing massive promise.",
+        created_at: "2026-05-08T14:15:00Z",
+        is_visible: true
+      },
+      {
+        id: -802,
+        post: -8,
+        author_name: "Liam Chen",
+        content: "Consensus mechanics in software agents is going to be a huge field. Great highlight, Chloe.",
+        created_at: "2026-05-09T09:20:00Z",
+        is_visible: true
+      }
+    ]
   },
   {
     id: -9,
@@ -155,10 +267,20 @@ export const MOCK_POSTS = [
     author: "Damian Cole",
     author_avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80",
     is_public: true,
-    comments_count: 9,
+    comments_count: 1,
     category: "Lifestyle",
     read_time: "4 MIN READ",
     likes: 180,
-    views: 1120
+    views: 1120,
+    comments: [
+      {
+        id: -901,
+        post: -9,
+        author_name: "Sarah Jenkins",
+        content: "Analog reading has improved my sleep quality tenfold. Can't recommend this ritual enough.",
+        created_at: "2026-05-05T22:30:00Z",
+        is_visible: true
+      }
+    ]
   }
 ];
